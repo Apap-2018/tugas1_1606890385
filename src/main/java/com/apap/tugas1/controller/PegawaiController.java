@@ -52,7 +52,7 @@ public class PegawaiController {
 		model.addAttribute("allJabatan", jabatanService.findAllJabatan());
 		model.addAttribute("allProvinsi", provinsiService.findAllProvinsi() );
 		model.addAttribute("pegawai", new PegawaiModel());
-		System.out.println("masooooook");
+		//System.out.println("masooooook");
 		return "tambah_pegawai";
 	}
 
@@ -66,6 +66,7 @@ public class PegawaiController {
 	private String cariPegawai(/*@RequestParam(value = "idProvinsi",required = false) long idProvinsi, @RequestParam(value="idInstansi",required= false) long idInstansi , @RequestParam(value="idJabatan", required = false) Long idJabatan,*/ Model model) {
 		model.addAttribute("allInstansi", instansiService.findAllInstansi());
 		model.addAttribute("allJabatan", jabatanService.findAllJabatan());
+		//System.out.println(jabatanService.findAllJabatan().size());
 		model.addAttribute("allProvinsi", provinsiService.findAllProvinsi() );
 		List<PegawaiModel> semuapegawai = pegawaiService.findAllPegawai();
 		model.addAttribute("semuaPegawai",semuapegawai);
