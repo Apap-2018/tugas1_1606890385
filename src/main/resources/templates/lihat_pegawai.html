@@ -75,9 +75,9 @@
 							</div>
 							
 							<div class="col-md-8 col-6">
-								<tr th:each="jabatan :  ${jabatan}">
-									<td th:text="${jabatan.nama}+','"></td>
-								</tr>
+								<ul th:each="jabatan :  ${jabatan}">
+									<li th:text="${jabatan.nama}"></li>
+								</ul>
 							</div>
 						</div>
 						<hr />

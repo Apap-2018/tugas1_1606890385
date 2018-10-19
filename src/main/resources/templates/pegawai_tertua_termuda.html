@@ -74,9 +74,9 @@
 								<label style="font-weight: bold;">Jabatan</label>
 							</div>
 							<div class="col-md-8 col-6">
-								<tr th:each="jabatan :  ${jabatanTua}">
-									<td th:text="${jabatan.nama}+','"></td>
-								</tr>
+								<ul th:each="jabatan :  ${jabatanTua}">
+									<li th:text="${jabatan.nama}"></li>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -143,9 +143,9 @@
 								<label style="font-weight: bold;">Jabatan</label>
 							</div>
 							<div class="col-md-8 col-6">
-								<tr th:each="jabatan :  ${jabatanMuda}">
-									<td th:text="${jabatan.nama}+','"></td>
-								</tr>
+								<ul th:each="jabatan :  ${jabatanMuda}">
+									<li th:text="${jabatan.nama}"></li>
+								</ul>
 							</div>
 						</div>
 					</div>
