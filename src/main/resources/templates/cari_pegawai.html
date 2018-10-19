@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.com">
+<head>
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<link rel="stylesheet" type="text/css"
+	th:href="@{//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css}" />
+
+
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+
+
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+	<script type="text/javascript"
+		src=https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js></script>
+
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+
+	<div class="container-fluid">
+	<!-- th:action="@{/pegawai/cari}" th:object="${pegawai}" method="GET" -->
+		<form >
+			<div class="col-md-8">
+				<div class="form-group">
+					<label>Provinsi</label> <select class="form-control"
+						id="idProvinsi" name="idProvinsi" required>
+						<option selected disabled>Pilih Instansi</option>
+						<th:block th:each="provinsi : ${allProvinsi}">
+							<option th:value="${provinsi.id}" th:text="${provinsi.nama}"></option>
+						</th:block>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Nama Instansi</label><select class="form-control"
+						id="idJabatan" name="idJabatan" required>
+						<option selected disabled>Pilih Instansi</option>
+						<th:block th:each="instansi : ${allInstansi}">
+							<option th:value="${instansi.id}" th:text="${instansi.nama}"></option>
+						</th:block>
+					</select>
+				</div>
+
+				<div class="form-group" id=maincontent>
+					<label>Jabatan</label> <select class="form-control" id="jabatan"
+						name="jabatan" required>
+						<option selected disabled>Pilih Jabatan</option>
+						<th:block th:each="jabatan : ${allJabatan}">
+							<option th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+						</th:block>
+					</select>
+				</div>
+				<hr />
+
+				<table id="semuaJabatan" class="display responsive nowrap"
+					style="width: 100%">
+
+					<!-- Header Table -->
+					<thead>
+						<tr>
+							<th>NIP</th>
+							<th>Nama</th>
+							<th>Tempat Lahir</th>
+							<th>Tanggal Lahir</th>
+							<th>Tahun Masuk</th>
+							<th>Nama Instansi</th>
+							<th>Jabatan</th>
+						</tr>
+					</thead>
+					<!-- Footer Table -->
+					<tfoot>
+						<tr>
+							<th>NIP</th>
+							<th>Nama</th>
+							<th>Tempat Lahir</th>
+							<th>Tanggal Lahir</th>
+							<th>Tahun Masuk</th>
+							<th>Nama Instansi</th>
+							<th>Jabatan</th>
+						</tr>
+					</tfoot>
+
+					<tbody>
+						<tr th:each="semuapegawai : ${semuaPegawai}">
+							<td th:text="${semuapegawai.nip}"></td>
+							<td th:text="${semuapegawai.nama}"></td>
+							<td th:text="${semuapegawai.tempat_lahir}"></td>
+							<td th:text="${semuapegawai.tanggalLahir}"></td>
+							<td th:text="${semuapegawai.tahun_masuk}"></td>
+							<td th:text="${semuapegawai.instansi.nama}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<script>
+				$(document).ready(function() {
+				$('#semuaJabatan').DataTable();
+				});
+				</script>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>

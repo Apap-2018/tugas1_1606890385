@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--  <object th:include="fragments/fragment :: title" th:remove ="tag"></object> -->
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+
+	<div class="container-fluid">
+		<h2>SIPEG</h2>
+		<h4>Selamat datang di Sistem Informasi Kepegawaian</h4>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<h5 class="card-header">Lihat Data Pegawai Berdasarkan NIP</h5>
+					<form th:action="@{/pegawai}" th:method="GET">
+						<div class="card-body">
+							<label for="nip">Masukkan NIP Pegawai:</label> <input type="text"
+								name="nip" class="form-control" placeholder="masukkan nip" /> <br>
+							<button type="submit" class="btn btn-primary">Lihat</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<h5 class="card-header">Lihat Detail Jabatan</h5>
+					<div class="card-body">
+						<p class="card-text">Pilih jabatan</p>
+						<form th:action="@{/jabatan/view}" th:method="GET">
+							<select class="form-control" id="idJabatan" name="idJabatan" required>
+								<option selected disabled>Pilih Jabatan</option>
+								<th:block th:each="jabatan : ${allJabatan}">
+									<option th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+								</th:block>
+							</select> <br>
+							<button type="submit" class="btn btn-primary">Lihat</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<h5 class="card-header">Lihat Pegawai Termuda dan Tertua</h5>
+					<div class="card-body">
+						<p class="card-text">Pilih Instansi</p>
+						<form th:action="@{/pegawai/termuda-tertua}" th:method="GET">
+							<select class="form-control" id="idInstansi" name="idInstansi" required>
+								<option selected disabled>Pilih Instansi</option>
+								<th:block th:each="instansi : ${allInstansi}">
+									<option th:value="${instansi.id}" th:text="${instansi.nama}+'- '+ ${instansi.provinsi.nama}"></option>
+								</th:block>
+							</select> <br>
+							<button type="submit" class="btn btn-primary">Lihat</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

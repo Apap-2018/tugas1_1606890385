@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.com">
+<head>
+<!--  <object th:include="fragments/fragment :: title" th:remove ="tag"></object> -->
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
+	<div class="container-fluid">
+		<h3 th:text="'Lihat Detail Jabatan - '+ ${jabatan.nama}"></h3>
+		<br>
+
+		<div class="row">
+			<div class="col-8">
+				<div class="tab-content ml-1" id="myTabContent">
+					<div class="tab-pane fade show active" id="basicInfo"
+						role="tabpanel" aria-labelledby="basicInfo-tab">
+
+
+						<div class="row">
+							<div class="col-sm-3 col-md-2 col-5">
+								<label style="font-weight: bold;">Nama</label>
+							</div>
+
+							<div class="col-md-8 col-6" th:text="${jabatan.nama}"></div>
+						</div>
+						<hr />
+
+						<div class="row">
+							<div class="col-sm-3 col-md-2 col-5">
+								<label style="font-weight: bold;">Deskripsi</label>
+							</div>
+
+							<div class="col-md-8 col-6" th:text="${jabatan.deskripsi}"></div>
+						</div>
+						<hr />
+
+						<div class="row">
+							<div class="col-sm-3 col-md-2 col-5">
+								<label style="font-weight: bold;">Gaji Pokok</label>
+							</div>
+							<div class="col-md-8 col-6" th:text="${jabatan.gaji_pokok}"></div>
+						</div>
+						<hr />
+						
+						<div class="row">
+							<div class="col-sm-3 col-md-2 col-5">
+								<label style="font-weight: bold;">Jumlah Pegawai</label>
+							</div>
+
+							<div class="col-md-8 col-6" th:text="${jmlhPegawai}"></div>
+						</div>
+						<hr />
+						<div class="form-row">
+							<div class="col-sm-2">
+								<form th:action="@{/jabatan/ubah}" th:method="GET">
+									<input type=hidden th:value="${jabatan.id}" name="idJabatan">
+									<button class="btn btn-outline-success" type="submit">Ubah</button>
+								</form>
+							</div>
+							<div class="col-sm-2">
+								<form  th:action="@{/jabatan/hapus}" th:method="POST">
+									<input type="hidden" name="idJabatan" th:field="${jabatan.id}"/>
+									<button class="btn btn-outline-danger" type="submit">Hapus</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

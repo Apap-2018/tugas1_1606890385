@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--  <object th:include="fragments/fragment :: title" th:remove ="tag"></object> -->
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<link rel="stylesheet" type="text/css"
+	th:href="@{//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css}" />
+
+
+</head>
+
+
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+	<script type="text/javascript"
+		src=https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js></script>
+
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+
+
+
+	<div class="container-fluid">
+		<h1>Semua Jabatan</h1>
+		<br>
+		<table id="semuaJabatan" class="display responsive nowrap"
+			style="width: 100%">
+
+			<!-- Header Table -->
+			<thead>
+				<tr>
+					<th>Nama</th>
+					<th>Deskripsi</th>
+					<th>Gaji Pokok</th>
+				</tr>
+			</thead>
+			<!-- Footer Table -->
+			<tfoot>
+				<tr>
+					<th>Nama</th>
+					<th>Deskripsi</th>
+					<th>Gaji Pokok</th>
+				</tr>
+			</tfoot>
+
+			<tbody>
+				<tr th:each="semuajabatan : ${semuaJabatan}">
+					<td th:text="${semuajabatan.nama}"></td>
+					<td th:text="${semuajabatan.deskripsi}"></td>
+					<td th:text="${semuajabatan.gaji_pokok}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+
+<script>
+	$(document).ready(function() {
+		$('#semuaJabatan').DataTable();
+	});
+</script>
+
+</html>
