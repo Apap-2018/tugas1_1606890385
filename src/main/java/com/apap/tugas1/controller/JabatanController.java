@@ -84,7 +84,7 @@ public class JabatanController {
 
 	}
 
-	@RequestMapping(value = "/jabatan/lihatSemua")
+	@RequestMapping(value = "/jabatan/viewall")
 	private String viewAll(Model model) {
 		List<JabatanModel> semuaJabatan = jabatanService.findAllJabatan();
 		model.addAttribute("semuaJabatan", semuaJabatan);

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--  <object th:include="fragments/fragment :: title" th:remove ="tag"></object> -->
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
+	<div class="container-fluid">
+		<div class="jumbotron text-xs-center">
+		<h1 class="display-3">Gagal</h1>
+		<p class="lead">Data tidak ada</p>
+		<hr>
+		<p class="lead">
+			<a class="btn btn-primary btn-sm" th:href="@{/}" role="button">Kembali ke Home</a>
+		</p>
+	</div>
+	</div>
+
+</body>
+
+</html>

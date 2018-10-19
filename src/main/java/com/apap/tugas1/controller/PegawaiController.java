@@ -38,7 +38,6 @@ public class PegawaiController {
 	@RequestMapping(value="/pegawai", method = RequestMethod.GET)
 	private String viewPegawai (@RequestParam ("nip") String nip, Model model) {
 			PegawaiModel pegawai = pegawaiService.getPegawaiDetailByNip(nip);
-			System.out.println(pegawai.getListJabatan().size());
 			model.addAttribute("pegawai", pegawai);
 			model.addAttribute("instansi", pegawai.getInstansi().getNama());
 			model.addAttribute("provinsi", pegawai.getInstansi().getProvinsi().getNama());
