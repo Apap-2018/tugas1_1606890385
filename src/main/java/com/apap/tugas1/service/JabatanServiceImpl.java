@@ -69,6 +69,14 @@ public class JabatanServiceImpl implements JabatanService{
 		// TODO Auto-generated method stub
 		return jabatanDb.getOne(id).getPegawai();
 	}
+
+	@Override
+	public void tambahPegawai(Long id, PegawaiModel pegawai) {
+		// TODO Auto-generated method stub
+		JabatanModel jabatan = getJabatanDetailById(id);
+		jabatan.getPegawai().add(pegawai);
+		
+	}
 	
 
 }

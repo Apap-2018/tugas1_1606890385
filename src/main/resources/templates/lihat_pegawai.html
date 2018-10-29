@@ -56,7 +56,7 @@
 							<div class="col-sm-3 col-md-2 col-5">
 								<label style="font-weight: bold;">Tahun Masuk</label>
 							</div>
-							<div class="col-md-8 col-6" th:text="${pegawai.tahun_masuk}"></div>
+							<div class="col-md-8 col-6" th:text="${pegawai.tahunMasuk}"></div>
 						</div>
 						<hr />
 
@@ -74,11 +74,11 @@
 								<label style="font-weight: bold;">Jabatan</label>
 							</div>
 
-							<div class="col-md-8 col-6">
+							 <div class="col-md-8 col-6">
 								<ul th:each="jabatan :  ${jabatan}">
 									<li th:text="${jabatan.nama}"></li>
 								</ul>
-							</div>
+							</div> 
 						</div>
 						<hr />
 
@@ -90,9 +90,9 @@
 						</div>
 						<hr />
 
-						<form th:action="@{'/pegawai/update/'+ ${pegawai.id}}">
-							<button type="submit" class="btn btn-primary">Update</button>
-						</form>
+						<a th:href="@{/pegawai/ubah?nip={nip}(nip=${pegawai.nip})}">
+  								<button type="submit" class="btn btn-primary">Ubah</button>
+  						</a>
 
 					</div>
 				</div>

@@ -2,6 +2,7 @@ package com.apap.tugas1.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -36,11 +37,10 @@ public class JabatanModel {
 	@Column(name="gaji_pokok", nullable = false)
 	private double gaji_pokok;
 
-	@ManyToMany
-	@JoinTable(name="jabatan_pegawai",
-			joinColumns = {@JoinColumn (name = "id_jabatan", referencedColumnName = "id", nullable = false )},
-			inverseJoinColumns = {@JoinColumn (name = "id_pegawai", referencedColumnName = "id", nullable = false)})
-	private List<PegawaiModel> pegawai;
+	@ManyToMany()
+	@JoinTable(name = "jabatan_pegawai", joinColumns = { @JoinColumn(name = "id_jabatan") }, inverseJoinColumns = { @JoinColumn(name = "id_pegawai") })
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
+	private List<PegawaiModel> pegawai=new ArrayList<PegawaiModel>();
 
 	public Long getId() {
 		return id;

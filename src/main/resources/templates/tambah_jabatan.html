@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.com">
+
 <head>
 <!--  <object th:include="fragments/fragment :: title" th:remove ="tag"></object> -->
 <object th:include="fragments/fragment :: css" th:remove="tag"></object>
@@ -8,7 +9,6 @@
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
-
 	<div class="container-fluid">
 		<h3>
 			Tambah Jabatan
@@ -45,4 +45,15 @@
 			<br>
 	</div>
 </body>
+
+
+<script>
+$(document).ready(function(){
+    $("input").change(function(){
+        alert("The text has been changed.");
+    });
+});
+</script>
+
 </html>
+	

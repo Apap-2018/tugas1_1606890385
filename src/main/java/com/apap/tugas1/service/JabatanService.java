@@ -14,4 +14,5 @@ public interface JabatanService {
 	List<JabatanModel> findAllJabatan();
 	JabatanModel getJabatanDetailById(long id);
 	List<PegawaiModel> getAllPegawai(long id);
+	void tambahPegawai(Long id, PegawaiModel pegawai);
 }

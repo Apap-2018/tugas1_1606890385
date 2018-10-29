@@ -1,6 +1,8 @@
 package com.apap.tugas1.service;
 
+import java.sql.Date;
 import java.util.List;
+
 import java.util.Optional;
 
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.apap.tugas1.model.InstansiModel;
+import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.model.PegawaiModel;
 import com.apap.tugas1.repository.PegawaiDb;
 
@@ -23,15 +26,18 @@ public class PegawaiServiceImpl implements PegawaiService {
 	@Override
 	public void addPegawai(PegawaiModel pegawai) {
 		// TODO Auto-generated method stub
+		System.out.println(pegawai.getListJabatan().size());
 		pegawaiDb.save(pegawai);
 	}
 
 	@Override
 	public PegawaiModel getPegawaiDetailByNip(String nip) {
 		// TODO Auto-generated method stub
-		System.out.println("masuk");
+		/*System.out.println("masuk");
 		System.out.println(nip);
 		System.out.println(pegawaiDb.findByNip(nip).get().getNama());
+		System.out.println(pegawaiDb.findByNip(nip).get().getListJabatan().size());
+		System.out.println(pegawaiDb.findByNip(nip).get().getListJabatanSortByGaji().size());*/
 		return pegawaiDb.findByNip(nip).get();
 	
 	}
@@ -44,14 +50,16 @@ public class PegawaiServiceImpl implements PegawaiService {
 	}
 
 	@Override
-	public void updatePegawai(long id, PegawaiModel pegawai) {
-		// TODO Auto-generated method stub
-		PegawaiModel baru = pegawaiDb.getOne(id);
-		baru.setTanggalLahir(pegawai.getTanggalLahir());
-		baru.setInstansi(pegawai.getInstansi());
-		baru.setTahun_masuk(pegawai.getTahun_masuk());
-		pegawaiDb.save(baru);
-		
+	public void updatePegawai(String nip, PegawaiModel pegawai) {
+		PegawaiModel updatePegawai = pegawaiDb.findByNip(nip).get();
+		updatePegawai.setNama(pegawai.getNama());
+		updatePegawai.setNip(pegawai.getNip());
+		updatePegawai.setTanggalLahir(pegawai.getTanggalLahir());
+		updatePegawai.setTempat_lahir(pegawai.getTempat_lahir());
+		updatePegawai.setTahunMasuk(pegawai.getTahunMasuk());
+		updatePegawai.setInstansi(pegawai.getInstansi());
+		updatePegawai.setListJabatan(pegawai.getListJabatan());
+		pegawaiDb.save(updatePegawai);
 	}
 
 	@Override
@@ -70,6 +78,55 @@ public class PegawaiServiceImpl implements PegawaiService {
 	public List<PegawaiModel> findAllPegawai() {
 		// TODO Auto-generated method stub
 		return pegawaiDb.findAll();
+	}
+
+	@Override
+	public List<PegawaiModel> getPegawaiByInstansiAndTanggalLahirAndTahunMasuk(InstansiModel instansi, Date tanggalLahir, String tahunMasuk) {
+		return pegawaiDb.findByInstansiAndTanggalLahirAndTahunMasuk(instansi, tanggalLahir, tahunMasuk);
+	}
+
+	@Override
+	public void setNipPegawai(PegawaiModel pegawai) {
+		// TODO Auto-generated method stub
+String nipTglLahir = "";
+		
+		Date tglLahir = pegawai.getTanggalLahir();
+		String[] tanggalLahir = (String.valueOf(tglLahir).split("-"));
+		for (int i = 0; i < tanggalLahir.length; i++) {
+			nipTglLahir = tanggalLahir[i].substring(tanggalLahir[i].length()-2, tanggalLahir[i].length()) + nipTglLahir;
+		}
+		
+		List<PegawaiModel> listPegawai = pegawaiDb.findByInstansiAndTanggalLahirAndTahunMasukOrderByNipAsc(pegawai.getInstansi(), pegawai.getTanggalLahir(), pegawai.getTahunMasuk());
+		int nomorPegawaiTemp = 0;
+		if (listPegawai.isEmpty()) {
+			nomorPegawaiTemp = 1;
+		} else {
+			PegawaiModel lastPegawai = listPegawai.get(listPegawai.size()-1);
+			nomorPegawaiTemp = Integer.valueOf(lastPegawai.getNip().substring(lastPegawai.getNip().length()-2)) + 1;
+		}
+		String nomorPegawai = (nomorPegawaiTemp < 10 ? "0" : "") + nomorPegawaiTemp;
+		
+		String nip = pegawai.getInstansi().getId() + nipTglLahir + pegawai.getTahunMasuk() + nomorPegawai;
+		
+		pegawai.setNip(nip);
+		
+	}
+
+	@Override
+	public List<PegawaiModel> getPegawaiByInstansiAndJabatan(InstansiModel instansi, JabatanModel jabatan) {
+		// TODO Auto-generated method stub
+		return  pegawaiDb.findByListjabatan(jabatan);
+	}
+	
+	@Override
+	public List<PegawaiModel> getPegawaiByInstansi(InstansiModel instansi) {
+		return pegawaiDb.findByInstansi(instansi);
+	}
+
+	@Override
+	public List<PegawaiModel> getPegawaiByListjabatan(JabatanModel jabatan) {
+		// TODO Auto-generated method stub
+		return pegawaiDb.findByListjabatan(jabatan);
 	}
 
 }

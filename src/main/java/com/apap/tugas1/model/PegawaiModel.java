@@ -3,6 +3,7 @@ package com.apap.tugas1.model;
 import java.io.Serializable;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -22,7 +23,6 @@ import org.hibernate.annotations.OnDeleteAction;
 public class PegawaiModel implements Serializable  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
 	@NotNull
@@ -46,8 +46,8 @@ public class PegawaiModel implements Serializable  {
 
 	@NotNull
 	@Size(max=255)
-	@Column(name="tahun_masuk", nullable = false)
-	private String tahun_masuk;
+	@Column(name="tahunMasuk", nullable = false)
+	private String tahunMasuk;
 
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "id_instansi", referencedColumnName= "id", nullable=false)
@@ -55,8 +55,10 @@ public class PegawaiModel implements Serializable  {
 	@JsonIgnore
 	private InstansiModel instansi;
 
-	@ManyToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	private List<JabatanModel> listjabatan;
+	@ManyToMany()
+	@JoinTable(name = "jabatan_pegawai", joinColumns = { @JoinColumn(name = "id_pegawai") }, inverseJoinColumns = { @JoinColumn(name = "id_jabatan") })
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
+	private List<JabatanModel> listjabatan= new ArrayList<JabatanModel>();
 
 	public Long getId() {
 		return id;
@@ -98,12 +100,12 @@ public class PegawaiModel implements Serializable  {
 		this.tanggalLahir = tanggalLahir;
 	}
 
-	public String getTahun_masuk() {
-		return tahun_masuk;
+	public String getTahunMasuk() {
+		return tahunMasuk;
 	}
 
-	public void setTahun_masuk(String tahun_masuk) {
-		this.tahun_masuk = tahun_masuk;
+	public void setTahunMasuk(String tahun_masuk) {
+		this.tahunMasuk = tahun_masuk;
 	}
 
 	public InstansiModel getInstansi() {
@@ -115,7 +117,13 @@ public class PegawaiModel implements Serializable  {
 	}
 
 	public List<JabatanModel> getListJabatan() {
-		Collections.sort(listjabatan, new SortByGajiPokok());
+		return listjabatan;
+	}
+	
+	public List<JabatanModel> getListJabatanSortByGaji() {
+		if(listjabatan.size()>1) {
+			Collections.sort(listjabatan, new SortByGajiPokok());
+		}
 		return listjabatan;
 	}
 
@@ -134,6 +142,8 @@ public class PegawaiModel implements Serializable  {
 			return (int) (a.getGaji_pokok()-b.getGaji_pokok());
 		}
 	}
+
+	
 
 
 }

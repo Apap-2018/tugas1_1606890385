@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.apap.tugas1.model.InstansiModel;
+import com.apap.tugas1.model.ProvinsiModel;
 import com.apap.tugas1.repository.InstansiDb;
 
 @Service
@@ -23,35 +24,30 @@ public class InstansiServiceImpl implements InstansiService {
 	}
 
 	@Override
-	public void addInstansi(InstansiModel instansi) {
-		// TODO Auto-generated method stub
-		instansiDb.save(instansi);
-		
-	}
-
-	@Override
-	public void deleteInstansi(InstansiModel instansi) {
-		// TODO Auto-generated method stub
-		instansiDb.delete(instansi);
-	}
-
-	@Override
-	public void updateInstansi(InstansiModel instansi, long id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<InstansiModel> findAllInstansi() {
 		// TODO Auto-generated method stub
 		return instansiDb.findAll();
 	}
 
-	/*@Override
-	public Optional<InstansiModel> getInstansiDetailByNama(String nama) {
+	@Override
+	public List<InstansiModel> getInstansiByProvinsi(ProvinsiModel provinsi) {
 		// TODO Auto-generated method stub
-		return null;
-	}*/
+		return instansiDb.findByProvinsi(provinsi);
+	}
+
+	@Override
+	public Optional<InstansiModel> findInstansiById(long id) {
+		// TODO Auto-generated method stub
+		return instansiDb.findById(id);
+	}
+
+	@Override
+	public List<InstansiModel> viewByNama(String nama) {
+		// TODO Auto-generated method stub
+		return instansiDb.findByNama(nama);
+	}
+
+
 	
 	
 	
