@@ -57,21 +57,6 @@ public class PegawaiController {
 	
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.GET)
 	private String add(Model model) {
-		
-		/*List<ProvinsiModel> listProv = provinsiService.findAllProvinsi();
-		List<JabatanModel> listJabatan = jabatanService.findAllJabatan();
-		
-		//default
-		List<InstansiModel> listInstansi = instansiService.getInstansiByProvinsi(listProv.get(0));
-		
-		PegawaiModel pegawai = new PegawaiModel();
-		pegawai.setListJabatan(new ArrayList<JabatanModel>());
-		pegawai.getListJabatan().add(new JabatanModel());
-		
-		model.addAttribute("pegawai", pegawai);
-		model.addAttribute("listInstansi", listInstansi);
-		model.addAttribute("listJabatan", listJabatan);
-		model.addAttribute("allProvinsi", listProv);*/
 		List<InstansiModel> listInstansi = instansiService.getInstansiByProvinsi(provinsiService.findAllProvinsi().get(0));
 		PegawaiModel pegawai = new PegawaiModel();
 		pegawai.setListJabatan(new ArrayList<JabatanModel>());
@@ -86,17 +71,6 @@ public class PegawaiController {
 	
 	@RequestMapping(value="/pegawai/tambah", params={"addRow"}, method = RequestMethod.POST)
 	public String addRowAdd(@ModelAttribute PegawaiModel pegawai, BindingResult bindingResult, Model model) {
-		
-		/*List<ProvinsiModel> listProv = provinsiService.findAllProvinsi();
-		List<JabatanModel> listJabatan = jabatanService.findAllJabatan();
-		
-		model.addAttribute("listJabatan", listJabatan);
-		model.addAttribute("allProvinsi", listProv);
-		
-		List<InstansiModel> listInstansi = instansiService.getInstansiByProvinsi(pegawai.getInstansi().getProvinsi());
-		model.addAttribute("listInstansi", listInstansi);
-		pegawai.getListJabatan().add(new JabatanModel());
-	    model.addAttribute("pegawai", pegawai);*/
 		
 		List<ProvinsiModel> listProv = provinsiService.findAllProvinsi();
 		List<JabatanModel> listJabatan = jabatanService.findAllJabatan();
@@ -118,20 +92,7 @@ public class PegawaiController {
 	
 	@RequestMapping(value="/pegawai/tambah", params={"deleteRow"}, method = RequestMethod.POST)
 	public String deleteRowAdd(@ModelAttribute PegawaiModel pegawai, BindingResult bindingResult, HttpServletRequest req,Model model) {
-		/*List<ProvinsiModel> listProv = provinsiService.findAllProvinsi();
-		List<JabatanModel> listJabatan = jabatanService.findAllJabatan();
-		
-		model.addAttribute("listJabatan", listJabatan);
-		model.addAttribute("allProvinsi", listProv);
-		
-
-		List<InstansiModel> listInstansi = instansiService.getInstansiByProvinsi(pegawai.getInstansi().getProvinsi());
-		model.addAttribute("listInstansi", listInstansi);
-		
-		Integer rowId = Integer.valueOf(req.getParameter("deleteRow"));
-		System.out.println(rowId);
-		pegawai.getListJabatan().remove(rowId.intValue());
-	    model.addAttribute("pegawai", pegawai);*/
+	
 		List<ProvinsiModel> listProv = provinsiService.findAllProvinsi();
 		List<JabatanModel> listJabatan = jabatanService.findAllJabatan();
 		
@@ -149,25 +110,6 @@ public class PegawaiController {
 	
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
 	private String addPegawaiSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
-		/*String kode = pegawai.getInstansi().getId().toString();
-		
-		SimpleDateFormat newFormat = new SimpleDateFormat("dd-MM-yy");
-		String tanggalLahir = newFormat.format(pegawai.getTanggalLahir()).replaceAll("-", "");
-		
-		String tahunKerja = pegawai.getTahunMasuk();
-
-		int urutan = pegawaiService.getPegawaiByInstansiAndTanggalLahirAndTahunMasuk(pegawai.getInstansi(), pegawai.getTanggalLahir(), pegawai.getTahunMasuk()).size()+1;
-		
-		String strUrutan;
-		if(urutan<10) strUrutan="0"+urutan;
-		else strUrutan=""+urutan;
-		
-		String nip = kode + tanggalLahir + tahunKerja + strUrutan;
-		
-		pegawai.setNip(nip);
-		
-		pegawaiService.addPegawai(pegawai);*/
-		
 		
 		String kode = pegawai.getInstansi().getId().toString();
 		
@@ -186,7 +128,8 @@ public class PegawaiController {
 		
 		pegawai.setNip(nip);
 		
-		
+		String result = "Pegawai dengan NIP "+ nip+" berhasil ditambahkan";
+		model.addAttribute("result",result);
 		pegawaiService.addPegawai(pegawai);
 		
 		return "tambah_sukses";
@@ -283,7 +226,8 @@ public class PegawaiController {
 		
 		pegawaiService.updatePegawai(oldNip, pegawai);
 		
-		
+		String result = "Pegawai dengan NIP "+newNip+" berhasil diubah";
+		model.addAttribute("result",result);
 		return "tambah_sukses";
 	}
 	

@@ -11,7 +11,7 @@
 	<div class="container-fluid">
 		<div class="jumbotron text-xs-center">
 		<h1 class="display-3">Success!</h1>
-		<p class="lead">Data berhasil di update</p>
+		<p th:text="${result}"></p>
 		<hr>
 		<p class="lead">
 			<a class="btn btn-primary btn-sm" th:href="@{/}" role="button">Kembali ke Home</a>
