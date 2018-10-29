@@ -46,13 +46,11 @@ public class PegawaiController {
 	
 	@RequestMapping(value="/pegawai", method = RequestMethod.GET)
 	private String viewPegawai (@RequestParam ("nip") String nip, Model model) {
-		System.out.println("masuk");
 			PegawaiModel pegawai = pegawaiService.getPegawaiDetailByNip(nip);
 			model.addAttribute("pegawai", pegawai);
 			model.addAttribute("instansi", pegawai.getInstansi().getNama());
 			model.addAttribute("provinsi", pegawai.getInstansi().getProvinsi().getNama());
 			model.addAttribute("jabatan", pegawai.getListJabatanSortByGaji());
-			System.out.println(pegawai.getListJabatan().size());
 			model.addAttribute("gaji", pegawai.getGaji()); 
 			return "lihat_pegawai";
 	}
@@ -188,17 +186,9 @@ public class PegawaiController {
 		
 		pegawai.setNip(nip);
 		
-		System.out.println(pegawai.getInstansi().getNama());
-		System.out.println(pegawai.getInstansi().getProvinsi());
-		for(JabatanModel jabatan : pegawai.getListJabatan()) {
-			System.out.println(jabatan.getNama());
-			System.out.println(jabatan.getId());
-		}
 		
 		pegawaiService.addPegawai(pegawai);
 		
-		/*String msg = "Pegawai dengan NIP "+ nip +" berhasil ditambahkan";
-		model.addAttribute("message", msg);*/
 		return "tambah_sukses";
 	}
 	

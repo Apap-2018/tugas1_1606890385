@@ -50,15 +50,12 @@ public class JabatanController {
 	private String viewJabatan(@RequestParam("idJabatan") Long id, Model model) {
 		JabatanModel jabatan = jabatanService.getJabatanDetailById(id);
 		model.addAttribute("jabatan", jabatan);
-		System.out.println(jabatan.getPegawai().size());
 		model.addAttribute("jmlhPegawai", jabatan.getPegawai().size());
 		return "lihat_jabatan";
 	}
 
 	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.GET)
 	private String update(@RequestParam("idJabatan") long idJabatan, Model model) {
-		System.out.println("masuk");
-		// Long id_num = Long.parseLong(id);
 		JabatanModel jabatan = jabatanService.getJabatanDetailById(idJabatan);
 		model.addAttribute("jabatan", jabatan);
 		return "update_jabatan";
